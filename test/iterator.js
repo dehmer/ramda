@@ -131,7 +131,7 @@ Iterator.prototype.transduce = function(fn, reducer, init) {
   return transduce(fn, reducer, init, this);
 };
 
-describe.only('Iterator', function() {
+describe('Iterator', function() {
   it('R.map :: Functor f => (a -> b) -> f a -> f b', function() {
     const it = Iterator.of([1, 2, 3]);
     const actual = Array.from(R.map(R.add(1), it));
