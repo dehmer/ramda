@@ -64,7 +64,6 @@ const chain = R.curry((fn, its) =>
  * reduce :: Foldable f => ((a, b) -> a) -> a -> [f b] -> a
  */
 const reduce = R.curry((fn, acc, it) => {
-  console.log('[reduce]', fn, acc, it, isTransformer(it));
   for (const i of it) {
     acc = fn(acc, i);
   }
@@ -78,7 +77,6 @@ const reduce = R.curry((fn, acc, it) => {
  * transduce :: (c -> c) -> ((a, b) -> a) -> a -> [b] -> a
  */
 const transduce = R.curry((fn, reducer, init, it) => {
-  console.log('[transduce]');
   const xf = fn({
     '@@transducer/init': () => init,
     '@@transducer/step': (acc, x) => reducer(acc, x),
@@ -108,28 +106,24 @@ Iterator.of = function(...args) {
 Iterator.prototype.map =
 Iterator.prototype['fantasy-land/map'] =
 function(fn) {
-  console.log('[Iterator.map]');
   return map(fn, this);
 };
 
 Iterator.prototype.filter =
 Iterator.prototype['fantasy-land/filter'] =
 function(pred) {
-  console.log('[Iterator.filter]');
   return filter(pred, this);
 };
 
 Iterator.prototype.chain =
 Iterator.prototype['fantasy-land/chain'] =
 function(fn) {
-  console.log('[Iterator.chain]', fn, this);
   return chain(fn, this);
 };
 
 Iterator.prototype.reduce =
 Iterator.prototype['fantasy-land/reduce'] =
 function(fn, acc) {
-  console.log('[Iterator.reduce]');
   return reduce(fn, acc, this);
 };
 
